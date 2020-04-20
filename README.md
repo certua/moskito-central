@@ -1,4 +1,13 @@
-# What is MoSKito-Central?
+# What is Certua MoSKito-Central?
+
+It's a fork from the oroginal Anotheria Moskito Central repository, with fixed applied for the needs of DaaS project:
+
+- Updated Hibernate and related packages to the latest version (With Postgres 9.5+ dialect support)
+- Removed the conflicted ASM package 4.1 is not required however was included and was in confilct with the 3.1 implementation (Most probably the main cause of the random issues we experienced)
+- Disabled hibernate ddl auto update feature, now we only validate the schema (init schema needs to be already present)
+- Fixed the Central logging issue, Central's Logback configuration was in conflict with Tomcat's SLF4J (Removed from the resources)
+
+
 
 **MoSKito-Central is the data warehouse for [MoSKito Monitoring system](http://moskito.org).**
 
