@@ -1,0 +1,8 @@
+{
+  "pattern": "/var/moskito/storage/json/{host}/{component}/{producer}/{interval}/{date}/{date}_{time}_{producer}.json",
+  "serializer": "org.moskito.central.storage.serializer.GsonSerializer",
+  "includeIntervals": "*",
+  "excludeIntervals": "",
+  "includeProducers": "*",
+  "excludeProducers": ""
+}

@@ -65,7 +65,7 @@ public class PSQLStorage implements Storage {
 		if (config.getHibernateDialect() != null) {
 			map.put("hibernate.dialect", config.getHibernateDialect());
 		}
-		map.put("hibernate.hbm2ddl.auto", "update");
+		map.put("hibernate.hbm2ddl.auto", "validate");
 		map.put("hibernate.show_sql", "true");
 		
 		try {

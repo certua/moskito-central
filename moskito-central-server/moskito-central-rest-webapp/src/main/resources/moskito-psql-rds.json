@@ -1,0 +1,23 @@
+{
+  "driver": "org.postgresql.Driver",
+  "url": "jdbc:postgresql://<VAR_DAAS_RDS_HOST>/<VAR_DAAS_RDS_MOSKITO_DB>",
+  "userName": "<VAR_DAAS_RDS_USER>",
+  "password": "<VAR_DAAS_RDS_PASS>",
+  "hibernateDialect": "org.hibernate.dialect.PostgreSQLDialect",
+  "@includeExclude": [
+    {
+      "includedProducers": "*",
+      "includedIntervals": "*"
+    }
+  ],
+  "@mappings" : [
+    {
+      "producerName": "SessionCount",
+      "statEntityClass":"org.moskito.central.storage.psql.HttpSessionStatisticsEntity"
+    },
+    {
+      "producerName": "MainSyncAppService,*API,*Service*",
+      "statEntityClass": "org.moskito.central.storage.psql.ServiceStatsEntity"
+    }
+  ]
+}

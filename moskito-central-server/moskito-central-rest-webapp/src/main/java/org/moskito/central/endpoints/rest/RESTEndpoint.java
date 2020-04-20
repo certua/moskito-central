@@ -1,12 +1,15 @@
 package org.moskito.central.endpoints.rest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-
+import javax.ws.rs.core.Response;
 import org.moskito.central.Central;
 import org.moskito.central.Snapshot;
+import org.moskito.central.SnapshotMetaData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
 
 /**
  * Central REST resource for incoming snapshots via HTTP.
@@ -16,6 +19,8 @@ import org.moskito.central.Snapshot;
  */
 @Path("/central")
 public class RESTEndpoint {
+
+	private static final Logger logger = LoggerFactory.getLogger("RESTEndpoint");
 
 	/**
 	 * Central instance.
@@ -34,7 +39,7 @@ public class RESTEndpoint {
      *
      * @return requested {@link Snapshot}
      */
-	/*@GET
+	@GET
 	@Path("/getSnapshot")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Snapshot getSnapshot() {
@@ -47,7 +52,7 @@ public class RESTEndpoint {
 
 		snapshot.setMetaData(metaData);
 
-		HashMap<String, String> data = new HashMap<String, String>();
+		HashMap<String, String> data = new HashMap<>();
 		data.put("firstname", "moskito");
 		data.put("lastname", "central");
 		snapshot.addSnapshotData("test", data);
@@ -55,7 +60,7 @@ public class RESTEndpoint {
 		snapshot.addSnapshotData("test3", data);
 
 		return snapshot;
-	}*/
+	}
 
 	/**
 	 * Receives {@link Snapshot} in order to transfer it to the central.
@@ -65,8 +70,13 @@ public class RESTEndpoint {
 	@POST
 	@Path("/addSnapshot")
 	@Consumes({ MediaType.APPLICATION_JSON })
-	public void addSnapshot(Snapshot snapshot) {
-		central.processIncomingSnapshot(snapshot);
+	public Response addSnapshot(Snapshot snapshot) {
+		try{
+			central.processIncomingSnapshot(snapshot);
+			return Response.ok("SUCCESS", MediaType.APPLICATION_JSON).build();
+		}catch (Exception e){
+			logger.error(e.getMessage(), e.getCause());
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("FAILED: " + e.getMessage()).build();
+		}
 	}
-
 }

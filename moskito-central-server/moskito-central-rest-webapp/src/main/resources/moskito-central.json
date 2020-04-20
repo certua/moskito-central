@@ -1,0 +1,9 @@
+{
+  "@storages": [
+    {
+      "name": "psql-db",
+      "clazz": "org.moskito.central.storage.psql.PSQLStorage",
+      "configName": "moskito-psql-rds"
+    }
+  ]
+}
